@@ -5,7 +5,7 @@
 # ----------------------------------------------------------------------------------------
 
 #   These are used to run modules, but I don't need it constantly updated in GitHub
-main.py
+#main.py
 app.py
 
 #   Setting, Parameters and Config files
