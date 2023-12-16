@@ -1,21 +1,39 @@
-import subprocess
 import tkinter as tk
+from tkinter import scrolledtext
+from ai_script import generate_text
 
-def run_ai_script():
-    subprocess.run(['python', 'code/ai_script.py'])
+def generate_content():
+    # Get the user input
+    prompt_text = query_input.get()
 
-def main():
-    root = tk.Tk()
-    root.title("Tkinter Desktop Application")
-    root.geometry("300x300")
+    # Use the generate_text function from ai_script.py
+    try:
+        generated_text = generate_text(prompt_text)
+        output_display_area.insert(tk.INSERT, generated_text + "\n")
+        status_bar.config(text="Generated successfully!")
+    except Exception as e:
+        output_display_area.insert(tk.INSERT, f"An error occurred: {e}\n")
+        status_bar.config(text="Error generating.")
 
-    # Button
-    run_button = tk.Button(root, text="Run AI Script", command=run_ai_script)
+# The main window
+root = tk.Tk()
+root.title("AI Content Creation Tool")
 
-    # Center the button
-    run_button.pack(expand=True)
+# Query input
+query_input = tk.Entry(root, width=50)
+query_input.pack(pady=10)
 
-    root.mainloop()
+# Generate button
+generate_button = tk.Button(root, text="Generate", command=generate_content)
+generate_button.pack(pady=5)
 
-if __name__ == "__main__":
-    main()
+# Output display
+output_display_area = scrolledtext.ScrolledText(root, width=50, height=20)
+output_display_area.pack(pady=10, padx=10)
+
+# Status bar
+status_bar = tk.Label(root, text="", bd=1, relief=tk.SUNKEN, anchor=tk.W)
+status_bar.pack(side=tk.BOTTOM, fill=tk.X)
+
+# Run the application
+root.mainloop()
