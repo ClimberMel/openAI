@@ -33,8 +33,8 @@ app.py
 #   The documentation folder is only for an individual's project notes, not to be included with project or github
 #   docs would be where documentation for the project (to be shared) would be placed especially if used to generate documentation such as with sphinx
 
-#parms/
-#output/
+parms/
+output/
 testcode/
 documentation/
 
