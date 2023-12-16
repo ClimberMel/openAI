@@ -1,6 +1,6 @@
 import openai
 
-import code.file as file
+import file
 
 # Get my API key
 parms = file.read_json("parms/openAI.json")
