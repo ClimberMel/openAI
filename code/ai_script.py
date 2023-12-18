@@ -1,21 +1,25 @@
-import openai
+from openai import OpenAI
+import time
 
 import code.file as file
 
 # Get my API key
 parms = file.read_json("parms/openAI.json")
-# Set your OpenAI API key here
-openai.api_key = parms["api_key"]
 
-# The prompt for the AI model
-prompt_text = "Once upon a time, there was a dragon"
+client = OpenAI(
+    # defaults to os.environ.get("OPENAI_API_KEY")
+    api_key=parms["api_key"],
+    )
 
-# Requesting the model to complete the prompt
-response = openai.Completion.create(
-  engine="text-davinci-003",
-  prompt=prompt_text,
-  max_tokens=50  # Maximum tokens to generate in the completion
-)
+def chat_gpt(prompt):
+        response = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[{"role": "user", "content": prompt}]
+        )
+        return response.choices[0].message.content.strip()
+#        print(response['choices'][0]['message']['content'])
 
-# Printing the AI-generated completion
-print(response.choices[0].text.strip())
+prompt = "What caused the market crash in 1980?"
+response = chat_gpt(prompt)
+
+print(response)
