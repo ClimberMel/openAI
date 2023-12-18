@@ -20,7 +20,7 @@ class AI_Main():
         self.root.rowconfigure(1, weight=1)
         self.root.columnconfigure(1, weight=1)
         self.root.title("Open AI Main Menu")
-        # Creates a logo for the window
+        # Creates a icon for the main window
         self.root.iconbitmap(default="images/openai-logomark.ico")
         self.root.geometry('{}x{}'.format(800, 300))
         # Call functions to buidl rest of UI
@@ -34,14 +34,14 @@ class AI_Main():
         self.dlXML_button["text"] = "Created"
 
     def create_frames(self):
-# - - The Commands frame (connect / disconnect with IB) - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# - - The Commands frame - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         self.cmd_frame = ttk.LabelFrame(self.root, text="AI Processing", relief=tk.RIDGE)
         self.cmd_frame.grid(row=0, column=0, columnspan = 4,sticky="news", padx=(0,5), ipadx=5)
         self.cmd_frame.rowconfigure(1, weight=1)
         self.cmd_frame.columnconfigure(1, weight=1)
-
-        # Create a label with IB Logo for Command Frame
+        # logo
         image1 = Image.open('images/OpenAI_sm.png')
+
         atf_logo = ImageTk.PhotoImage(image1)
         self.label1 = ttk.Label(self.cmd_frame, image=atf_logo)
         self.label1.image = atf_logo
@@ -52,8 +52,6 @@ class AI_Main():
         self.dlXML_button.grid(row=1, column=1, sticky=tk.W, padx=(10,5))
         self.label3 = ttk.Label(self.root, text='')
         self.label3.grid(row=1, column=1, sticky=tk.E, padx=(10,10))
-
-
 
 # - - The Bottom Status frame - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         self.stat_frame = ttk.LabelFrame(self.root, text="Status", relief=tk.RIDGE)
