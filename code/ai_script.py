@@ -3,8 +3,9 @@ import time
 
 import code.file as file
 
+
 # Get my API key
-parms = file.read_json("parms/openAI.json")
+parms = file.read_json("parms/test_openAI.json")
 
 client = OpenAI(
     # defaults to os.environ.get("OPENAI_API_KEY")
