@@ -35,6 +35,7 @@ class AI_Main():
             self.response.insert(tk.INSERT, "Please enter a request above!")
         else:
             self.dlXML_button["text"] = "Created"
+            self.response.delete("1.0",tk.END)
             self.response.insert(tk.INSERT, responseText)
 
     def create_frames(self):
