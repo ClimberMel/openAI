@@ -1,5 +1,4 @@
-# Consider having a main menu that allows download of flex report XML
-# then select XL reports to create and select launching ATF_menu
+"""A GUI to send and recieve requests and responses from OpenAI ChatGPT"""
 
 # - - For the GUI - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 import tkinter as tk
@@ -10,10 +9,8 @@ from PIL import Image, ImageTk
 
 # Import modules 
 import datetime as dt
-
-import code.ai_script as ai
-# - - For report parameters
-import code.file as file     # module to read json file
+import code.ai_script as ai         # - - The processing code
+import code.file as file            # - - For reading parameters
 
 # - - Main app class - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 class AI_Main():
@@ -32,32 +29,13 @@ class AI_Main():
     def dlXMLclick(self):
         self.dlXML_button["text"] = "Processing"
         prompt = "Why are oil prices falling?"
-        response = ai.chat_gpt(prompt)
-        self.dlXML_button["text"] = "Created"
-        #self.response.insert(tk.INSERT, "Please enter a request above!")
-        self.response.insert(tk.INSERT, response)
-
-    def sample_response(self):
-        responseText = self.inputtxt.get(1.0, "end-1c")
-        print(responseText)
+        responseText = ai.chat_gpt(prompt)
         if responseText == "":
             self.response.delete("1.0",tk.END)
             self.response.insert(tk.INSERT, "Please enter a request above!")
         else:
-            self.response.delete("1.0",tk.END)
-            self.response.insert(tk.INSERT, 
-"""This is a scrolledtext widget to make tkinter text read only. 
-This is a big long bunch of text
-
-Just wanting to simulate 
-a response from the AI.
-
-It could be quite a long response in some cases 
-so I need to test formatting
-and see how well it will display!
-
-How does this look so far?""") 
-
+            self.dlXML_button["text"] = "Created"
+            self.response.insert(tk.INSERT, responseText)
 
     def create_frames(self):
 # - - The Header frame - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -70,8 +48,7 @@ How does this look so far?""")
         atf_logo = ImageTk.PhotoImage(image1)
         self.label1 = ttk.Label(self.hdr_frame, image=atf_logo)
         self.label1.image = atf_logo
-        self.label1.grid(row=0, column=0, sticky=tk.W, pady=3)
-        
+        self.label1.grid(row=0, column=0, sticky=tk.W, pady=3)        
         # in root frame
         self.label2 = ttk.Label(self.root, text='Input your request: ')
         self.label2.grid(row=1, column=0, sticky=tk.NW, padx=(10,10))
