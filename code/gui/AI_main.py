@@ -11,6 +11,7 @@ from PIL import Image, ImageTk
 # Import modules 
 import datetime as dt
 
+import code.ai_script as ai
 # - - For report parameters
 import code.file as file     # module to read json file
 
@@ -30,9 +31,11 @@ class AI_Main():
 # - - Functions go here
     def dlXMLclick(self):
         self.dlXML_button["text"] = "Processing"
-        print("downloading")
-        import code.ai_script
+        prompt = "Why are oil prices falling?"
+        response = ai.chat_gpt(prompt)
         self.dlXML_button["text"] = "Created"
+        #self.response.insert(tk.INSERT, "Please enter a request above!")
+        self.response.insert(tk.INSERT, response)
 
     def sample_response(self):
         responseText = self.inputtxt.get(1.0, "end-1c")
@@ -54,8 +57,6 @@ so I need to test formatting
 and see how well it will display!
 
 How does this look so far?""") 
-
-        #self.statusLbl.config(text = "Response: " + response)
 
 
     def create_frames(self):
@@ -81,16 +82,14 @@ How does this look so far?""")
         
         self.label3 = ttk.Label(self.root, text='OpenAI processing')
         self.label3.grid(row=2, column=0, sticky=tk.W, padx=(10,10))
-        #self.dlXML_button = ttk.Button(self.root, text="Generate Content", command=self.dlXMLclick)
-        self.dlXML_button = ttk.Button(self.root, text="Generate Content", command=self.sample_response)
+        self.dlXML_button = ttk.Button(self.root, text="Generate Content", command=self.dlXMLclick)
+        #self.dlXML_button = ttk.Button(self.root, text="Generate Content", command=self.sample_response)
         self.dlXML_button.grid(row=2, column=1, sticky=tk.W, padx=(10,5))
 # - - The Bottom Status frame - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         self.stat_frame = ttk.LabelFrame(self.root, text="Response", relief=tk.RIDGE)
         self.stat_frame.grid(row=3, column=0, columnspan = 4,sticky="ews", padx=(0,5), ipadx=5)
         self.stat_frame.rowconfigure(1, weight=1)
         self.stat_frame.columnconfigure(1, weight=1)
-#        self.statusLbl = ttk.Label(self.stat_frame, text='waiting')
-#        self.statusLbl.grid(row=0, column=0, sticky=tk.W, padx=(10,10))
         self.response = st.ScrolledText(self.stat_frame, 
                             width = 60,  
                             height = 8,  
