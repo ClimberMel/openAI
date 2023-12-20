@@ -28,18 +28,18 @@ class AI_Main():
 # - - Functions go here
     def dlXMLclick(self):
         self.dlXML_button["text"] = "Processing"
-        prompt = "Why are oil prices falling?"
-        responseText = ai.chat_gpt(prompt)
-        if responseText == "":
+        prompt = self.inputtxt.get(1.0, "end-1c")        
+        if prompt == "":                                    # prevents trying to get a response if request is blank
             self.response.delete("1.0",tk.END)
             self.response.insert(tk.INSERT, "Please enter a request above!")
         else:
             self.dlXML_button["text"] = "Created"
             self.response.delete("1.0",tk.END)
+            responseText = ai.chat_gpt(prompt)
             self.response.insert(tk.INSERT, responseText)
 
     def create_frames(self):
-# - - The Header frame - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    # - - The Header frame - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         self.hdr_frame = ttk.LabelFrame(self.root, text="AI Processing", relief=tk.RIDGE)
         self.hdr_frame.grid(row=0, column=0, columnspan = 4,sticky="news", padx=(0,5), ipadx=5)
         self.hdr_frame.rowconfigure(1, weight=1)
@@ -56,25 +56,22 @@ class AI_Main():
         self.inputtxt = tk.Text(self.root, 
                     height = 5, 
                     width = 60) 
-        self.inputtxt.grid(row=1, column=1, sticky=tk.NW, padx=(10,10))
-        
+        self.inputtxt.grid(row=1, column=1, sticky=tk.NW, padx=(10,10))        
         self.label3 = ttk.Label(self.root, text='OpenAI processing')
         self.label3.grid(row=2, column=0, sticky=tk.W, padx=(10,10))
         self.dlXML_button = ttk.Button(self.root, text="Generate Content", command=self.dlXMLclick)
-        #self.dlXML_button = ttk.Button(self.root, text="Generate Content", command=self.sample_response)
         self.dlXML_button.grid(row=2, column=1, sticky=tk.W, padx=(10,5))
-# - - The Bottom Status frame - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    # - - The Bottom Status / Response frame - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         self.stat_frame = ttk.LabelFrame(self.root, text="Response", relief=tk.RIDGE)
         self.stat_frame.grid(row=3, column=0, columnspan = 4,sticky="ews", padx=(0,5), ipadx=5)
         self.stat_frame.rowconfigure(1, weight=1)
         self.stat_frame.columnconfigure(1, weight=1)
         self.response = st.ScrolledText(self.stat_frame, 
-                            width = 60,  
+                            width = 80,  
                             height = 8,  
                             font = ("Times New Roman", 12)) 
         self.response.grid(row=0, column=1, sticky=tk.W, padx=(10,10))
         self.response.insert(tk.INSERT, "waiting for response")
-    
     # - - Quit button in the lower right corner - - - - - - - - - - - - - - - - - - - - - - -
         self.quit_button = ttk.Button(self.root, text="Quit", command=self.root.destroy)
         self.quit_button.grid(row=4, column=3, sticky=tk.E)
